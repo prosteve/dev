@@ -1,0 +1,50 @@
+{
+  "name": "smart-tenda-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.913.0",
+    "@prisma/client": "^5.8.0",
+    "@supabase/supabase-js": "^2.76.0",
+    "@tanstack/react-query": "^5.90.5",
+    "@trpc/client": "^11.6.0",
+    "@trpc/react-query": "^11.6.0",
+    "@trpc/server": "^11.0.0",
+    "ajv": "^8.17.1",
+    "axios": "^1.12.2",
+    "clsx": "^1.2.1",
+    "dotenv": "^17.2.3",
+    "next": "^14.0.0",
+    "next-auth": "^4.22.1",
+    "prisma": "^5.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "tailwindcss": "^4.1.15",
+    "zod": "^3.22.2",
+    "puppeteer": "^21.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.6.5",
+    "@types/react": "^19.2.2",
+    "@types/jest": "^29.5.3",
+    "eslint": "8.43.0",
+    "eslint-config-next": "14.0.0",
+    "jest": "29.6.4",
+    "ts-jest": "29.1.0",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest --config jest.config.cjs"
+  }
+}

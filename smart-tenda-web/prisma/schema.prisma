@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id            String  @id @default(cuid())
+  name          String
+  kraPin        String  @unique
+  createdAt     DateTime @default(now())
+  users         User[]
+  docs          Doc[]
+  tenders       Tender[]
+}
+
+model User {
+  id            String  @id @default(cuid())
+  email         String  @unique
+  name          String?
+  accountId     String
+  account       Account @relation(fields:[accountId], references:[id])
+}
+
+model Tender {
+  id            String   @id @default(cuid())
+  refNo         String   @unique
+  title         String
+  openDate      DateTime
+  closeDate     DateTime
+  category      String
+  county        String
+  securityAmt   Int?
+  source        String
+  rawPdfUrl     String?
+  embedding     Unsupported("vector(768)")?
+  createdAt     DateTime @default(now())
+  accountId     String
+  account       Account @relation(fields:[accountId], references:[id])
+  checks        Check[]
+}
+
+model Doc {
+  id            String   @id @default(cuid())
+  type          String   
+  s3Key         String   @unique
+  issueDate     DateTime
+  expiryDate    DateTime
+  accountId     String
+  account       Account @relation(fields:[accountId], references:[id])
+}
+
+model Check {
+  id            String   @id @default(cuid())
+  tenderId      String
+  tender        Tender   @relation(fields:[tenderId], references:[id])
+  docType       String
+  status        String   
+  // detail stored as Json in Postgres
+  detail        Json?
+  updatedAt     DateTime @default(now())
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  tenderId   String?
+  checkId    String?
+  action     String
+  actorEmail String?
+  meta       Json?
+  createdAt  DateTime @default(now())
+}
+
+model Submission {
+  id         String   @id @default(cuid())
+  tenderId   String?
+  tender     Tender?  @relation(fields: [tenderId], references: [id])
+  accountId  String?
+  account    Account? @relation(fields: [accountId], references: [id])
+  key        String   @unique
+  filename   String
+  createdAt  DateTime @default(now())
+  meta       Json?
+}
